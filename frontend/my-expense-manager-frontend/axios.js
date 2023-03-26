@@ -1,5 +1,10 @@
 import axios from "axios";
-const authKey = localStorage.getItem("x-auth-token");
+let authKey;
+if (typeof window !== "undefined") {
+  // Perform localStorage action
+  authKey = localStorage.getItem("x-auth-token");
+}
+
 export default axios.create(() => {
   return {
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,

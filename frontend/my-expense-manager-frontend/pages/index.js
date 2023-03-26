@@ -4,7 +4,7 @@ import styles from "../styles/Home.module.css";
 import React, { useContext, useState, useEffect } from "react";
 
 import { AppContext } from "../AppContext";
-import axios from "../axios";
+import api from "../api";
 import { auth } from "../actions";
 
 export default function Login(props) {
@@ -34,14 +34,13 @@ export default function Login(props) {
     };
     console.log(payload);
     try {
-      const res = await axios({
+      const res = await api({
         method: "POST",
         url: "/login",
         data: {
           email: email,
           password: password,
         },
-        headers: { "content-type": "application/json" },
       });
       console.log("hello");
       console.log(res);

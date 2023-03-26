@@ -7,7 +7,7 @@ if (typeof window !== "undefined") {
 
 export default axios.create(() => {
   return {
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    baseURL: "http://localhost:8080",
     headers: {
       authorization: authKey,
       Accept: "application/json",

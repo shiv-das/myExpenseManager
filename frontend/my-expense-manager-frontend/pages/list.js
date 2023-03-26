@@ -3,6 +3,15 @@ import * as React from "react";
 import { AppContext } from "../AppContext";
 import { auth, fetchPatients, searchPatients } from "../actions";
 
+const styles = {
+  table: {
+    position: "absolute",
+    inset: "auto auto 0px 0px",
+    margin: 0,
+    transform: "translate3d(522.5px, 3847.5px, 0px)",
+  },
+};
+
 export default function List(props) {
   const { state, dispatch } = React.useContext(AppContext);
 
@@ -47,8 +56,8 @@ export default function List(props) {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 strokeWidth="2"
                 d="M19 9l-7 7-7-7"
               ></path>
@@ -61,7 +70,7 @@ export default function List(props) {
             data-popper-reference-hidden=""
             data-popper-escaped=""
             data-popper-placement="top"
-            style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);"
+            style={styles["table"]}
           >
             <ul
               className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200"
@@ -77,31 +86,14 @@ export default function List(props) {
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label
-                    for="filter-radio-example-1"
+                    htmlFor="filter-radio-example-1"
                     className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                   >
                     Last day
                   </label>
                 </div>
               </li>
-              <li>
-                <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                  <input
-                    checked=""
-                    id="filter-radio-example-2"
-                    type="radio"
-                    value=""
-                    name="filter-radio"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                  <label
-                    for="filter-radio-example-2"
-                    className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                  >
-                    Last 7 days
-                  </label>
-                </div>
-              </li>
+
               <li>
                 <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                   <input
@@ -112,7 +104,7 @@ export default function List(props) {
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label
-                    for="filter-radio-example-3"
+                    htmlFor="filter-radio-example-3"
                     className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                   >
                     Last 30 days
@@ -129,7 +121,7 @@ export default function List(props) {
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label
-                    for="filter-radio-example-4"
+                    htmlFor="filter-radio-example-4"
                     className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                   >
                     Last month
@@ -146,7 +138,7 @@ export default function List(props) {
                     className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <label
-                    for="filter-radio-example-5"
+                    htmlFor="filter-radio-example-5"
                     className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                   >
                     Last year
@@ -156,7 +148,7 @@ export default function List(props) {
             </ul>
           </div>
         </div>
-        <label for="table-search" className="sr-only">
+        <label htmlFor="table-search" className="sr-only">
           Search
         </label>
         <div className="relative">
@@ -179,36 +171,30 @@ export default function List(props) {
             type="text"
             id="table-search"
             className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search for items"
+            placeholder="Search htmlFor items"
           />
         </div>
       </div>
       <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" className="p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-all-search"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label for="checkbox-all-search" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </th>
             <th scope="col" className="px-6 py-3">
-              Product name
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Color
+              Name
             </th>
             <th scope="col" className="px-6 py-3">
               Category
             </th>
             <th scope="col" className="px-6 py-3">
-              Price
+              Date of Expense
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Amount
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Updated At
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Created By
             </th>
             <th scope="col" className="px-6 py-3">
               Action
@@ -217,18 +203,6 @@ export default function List(props) {
         </thead>
         <tbody>
           <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td className="w-4 p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-table-search-1"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label for="checkbox-table-search-1" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </td>
             <th
               scope="row"
               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -238,6 +212,8 @@ export default function List(props) {
             <td className="px-6 py-4">Silver</td>
             <td className="px-6 py-4">Laptop</td>
             <td className="px-6 py-4">$2999</td>
+            <td className="px-6 py-4">21 March,2023</td>
+            <td className="px-6 py-4">21 March,2023</td>
             <td className="px-6 py-4">
               <a
                 href="#"
@@ -248,18 +224,6 @@ export default function List(props) {
             </td>
           </tr>
           <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td className="w-4 p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-table-search-2"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label for="checkbox-table-search-2" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </td>
             <th
               scope="row"
               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -269,6 +233,8 @@ export default function List(props) {
             <td className="px-6 py-4">White</td>
             <td className="px-6 py-4">Laptop PC</td>
             <td className="px-6 py-4">$1999</td>
+            <td className="px-6 py-4">21 March,2023</td>
+            <td className="px-6 py-4">21 March,2023</td>
             <td className="px-6 py-4">
               <a
                 href="#"
@@ -279,18 +245,6 @@ export default function List(props) {
             </td>
           </tr>
           <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td className="w-4 p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-table-search-3"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label for="checkbox-table-search-3" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </td>
             <th
               scope="row"
               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -300,6 +254,8 @@ export default function List(props) {
             <td className="px-6 py-4">Black</td>
             <td className="px-6 py-4">Accessories</td>
             <td className="px-6 py-4">$99</td>
+            <td className="px-6 py-4">21 March,2023</td>
+            <td className="px-6 py-4">21 March,2023</td>
             <td className="px-6 py-4">
               <a
                 href="#"
@@ -310,18 +266,6 @@ export default function List(props) {
             </td>
           </tr>
           <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td className="w-4 p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-table-3"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label for="checkbox-table-3" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </td>
             <th
               scope="row"
               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -331,6 +275,8 @@ export default function List(props) {
             <td className="px-6 py-4">Silver</td>
             <td className="px-6 py-4">Accessories</td>
             <td className="px-6 py-4">$179</td>
+            <td className="px-6 py-4">21 March,2023</td>
+            <td className="px-6 py-4">21 March,2023</td>
             <td className="px-6 py-4">
               <a
                 href="#"
@@ -341,18 +287,6 @@ export default function List(props) {
             </td>
           </tr>
           <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td className="w-4 p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-table-3"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label for="checkbox-table-3" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </td>
             <th
               scope="row"
               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -362,6 +296,8 @@ export default function List(props) {
             <td className="px-6 py-4">Gold</td>
             <td className="px-6 py-4">Tablet</td>
             <td className="px-6 py-4">$699</td>
+            <td className="px-6 py-4">21 March,2023</td>
+            <td className="px-6 py-4">21 March,2023</td>
             <td className="px-6 py-4">
               <a
                 href="#"
@@ -372,18 +308,6 @@ export default function List(props) {
             </td>
           </tr>
           <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td className="w-4 p-4">
-              <div className="flex items-center">
-                <input
-                  id="checkbox-table-3"
-                  type="checkbox"
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label for="checkbox-table-3" className="sr-only">
-                  checkbox
-                </label>
-              </div>
-            </td>
             <th
               scope="row"
               className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -393,6 +317,8 @@ export default function List(props) {
             <td className="px-6 py-4">Silver</td>
             <td className="px-6 py-4">PC Desktop</td>
             <td className="px-6 py-4">$3999</td>
+            <td className="px-6 py-4">21 March,2023</td>
+            <td className="px-6 py-4">21 March,2023</td>
             <td className="px-6 py-4">
               <a
                 href="#"

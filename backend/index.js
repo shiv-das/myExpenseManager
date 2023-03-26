@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
+const connectDB = require("./config/database");
 const cors = require("cors");
 const path = require("path");
 const adminRoutes = require("./routes/adminRoutes");
+
+//connection to DataBase
+connectDB();
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());

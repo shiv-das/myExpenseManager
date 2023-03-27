@@ -20,3 +20,13 @@ export const fetchExpenses = async (pageNum, itemsPerPage) => {
     payload: response.data,
   };
 };
+
+export const searchExpenses = async (searchByName) => {
+  const response = await axios.get("/expenses/search", {
+    params: { searchByName },
+  });
+  return {
+    type: "searchExpenses",
+    payload: response.data,
+  };
+};

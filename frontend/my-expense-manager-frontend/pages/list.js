@@ -5,7 +5,7 @@ import { auth, fetchPatients, searchPatients } from "../actions";
 import CommonHeader from "../components/CommonHeader";
 import RegistrationModal from "../components/RegistrationModal";
 import { useState } from "react";
-import { fetchExpenses } from "../actions";
+import { fetchExpenses, searchExpenses } from "../actions";
 
 const styles = {
   table: {
@@ -18,6 +18,8 @@ const styles = {
 
 export default function List(props) {
   const { state, dispatch } = React.useContext(AppContext);
+
+  const [searchNameField, setsearchNameField] = React.useState("");
 
   React.useEffect(() => {
     if (!localStorage.getItem("x-auth-token")) {
@@ -41,6 +43,12 @@ export default function List(props) {
 
   //console.log(Object.values(state.expenses)[1].name);
   const arr = Object.values(state.expenses);
+
+  const handleNameSearch = async (e) => {
+    setsearchNameField(e.target.value);
+    console.log(e.target.value);
+    dispatch(await searchExpenses(e.target.value));
+  };
 
   const [isModalHidden, setIsModalHidden] = React.useState(true);
 
@@ -75,7 +83,8 @@ export default function List(props) {
               type="text"
               id="table-search"
               className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search For items"
+              placeholder="Search Expense by Name"
+              onChange={handleNameSearch}
             />
           </div>
           <div className="text-center lg:text-left">

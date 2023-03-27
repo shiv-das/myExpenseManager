@@ -21,6 +21,8 @@ const reducer = (state, action) => {
       };
     case "fetchExpenses":
       return { ...state, expenses: _.mapKeys(action.payload, "_id") };
+    case "searchExpenses":
+      return { ...state, expenses: _.mapKeys(action.payload, "_id") };
     default:
       return { ...state };
   }

@@ -5,8 +5,7 @@ import { auth, fetchPatients, searchPatients } from "../actions";
 import CommonHeader from "../components/CommonHeader";
 import RegistrationModal from "../components/RegistrationModal";
 import { useState } from "react";
-import { Modal } from "flowbite-react/lib/cjs/components/Modal/Modal";
-import FlowbiteModal from "../components/FlowbiteModal";
+import { fetchExpenses } from "../actions";
 
 const styles = {
   table: {
@@ -27,6 +26,21 @@ export default function List(props) {
       dispatch(auth({}, true));
     }
   }, []);
+
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  React.useEffect(() => {
+    const expenses = async () => {
+      dispatch(await fetchExpenses(page, rowsPerPage));
+    };
+    if (state.auth["isSignedIn"]) {
+      expenses();
+    }
+  }, [state.auth["isSignedIn"]]);
+
+  //console.log(Object.values(state.expenses)[1].name);
+  const arr = Object.values(state.expenses);
 
   const [isModalHidden, setIsModalHidden] = React.useState(true);
 
@@ -102,132 +116,31 @@ export default function List(props) {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Microsoft Surface Pro
-              </th>
-              <td className="px-6 py-4">White</td>
-              <td className="px-6 py-4">Laptop PC</td>
-              <td className="px-6 py-4">$1999</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Magic Mouse 2
-              </th>
-              <td className="px-6 py-4">Black</td>
-              <td className="px-6 py-4">Accessories</td>
-              <td className="px-6 py-4">$99</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple Watch
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Accessories</td>
-              <td className="px-6 py-4">$179</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                iPad
-              </th>
-              <td className="px-6 py-4">Gold</td>
-              <td className="px-6 py-4">Tablet</td>
-              <td className="px-6 py-4">$699</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
-            <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple iMac 27"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">PC Desktop</td>
-              <td className="px-6 py-4">$3999</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">21 March,2023</td>
-              <td className="px-6 py-4">
-                <a
-                  href="#"
-                  className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                >
-                  Edit
-                </a>
-              </td>
-            </tr>
+            {arr.map((row) => {
+              return (
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {row.description}
+                  </th>
+                  <td className="px-6 py-4">{row.category}</td>
+                  <td className="px-6 py-4">{row.dateOfExpense}</td>
+                  <td className="px-6 py-4">{"INR " + row.amount}</td>
+                  <td className="px-6 py-4">just now</td>
+                  <td className="px-6 py-4">{row.name}</td>
+                  <td className="px-6 py-4">
+                    <a
+                      href="#"
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    >
+                      Edit
+                    </a>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

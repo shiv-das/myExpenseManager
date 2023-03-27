@@ -10,3 +10,13 @@ export const auth = (user, flag) => {
     },
   };
 };
+
+export const fetchExpenses = async (pageNum, itemsPerPage) => {
+  const response = await axios.get("/expenses", {
+    params: { pageNum, itemsPerPage },
+  });
+  return {
+    type: "fetchExpenses",
+    payload: response.data,
+  };
+};

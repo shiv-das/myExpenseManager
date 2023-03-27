@@ -4,6 +4,7 @@ import _ from "lodash";
 const AppContext = createContext({});
 
 const initialState = {
+  expenses: {},
   auth: {
     isSignedIn: false,
     user: null,
@@ -18,6 +19,8 @@ const reducer = (state, action) => {
         ...state,
         auth: { isSignedIn: action.payload.flag, user: action.payload.user },
       };
+    case "fetchExpenses":
+      return { ...state, expenses: _.mapKeys(action.payload, "_id") };
     default:
       return { ...state };
   }

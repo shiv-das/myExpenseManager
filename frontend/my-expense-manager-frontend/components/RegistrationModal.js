@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import api from "../api";
 
 export default function RegistrationModal(props) {
@@ -11,8 +11,10 @@ export default function RegistrationModal(props) {
   const [category, setCategory] = useState("");
   const [dateOfExpense, setDateOfExpense] = useState("");
   const [amount, setAmount] = useState("");
-  console.log(name);
+  //console.log(name);
+
   var payload = {};
+
   const onSubmit = async (e) => {
     payload = {
       name: name,
@@ -33,6 +35,12 @@ export default function RegistrationModal(props) {
           category: category,
           dateOfExpense: dateOfExpense,
           amount: amount,
+        },
+        headers: {
+          authorization: localStorage.getItem("x-auth-token"),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
       });
       console.log(res);

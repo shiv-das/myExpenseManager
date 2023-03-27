@@ -28,7 +28,7 @@ export default function List(props) {
     }
   }, []);
 
-  const [isModalHidden, setIsModalHidden] = React.useState(false);
+  const [isModalHidden, setIsModalHidden] = React.useState(true);
 
   return (
     <div>

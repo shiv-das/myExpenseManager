@@ -1,9 +1,51 @@
 import * as React from "react";
 import { useState } from "react";
+import api from "../api";
 
 export default function RegistrationModal(props) {
   const handleOpen = () => props.setHidden(false);
   const handleClose = () => props.setHidden(true);
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [dateOfExpense, setDateOfExpense] = useState("");
+  const [amount, setAmount] = useState("");
+  console.log(name);
+  var payload = {};
+  const onSubmit = async (e) => {
+    payload = {
+      name: name,
+      description: description,
+      category: category,
+      dateOfExpense: dateOfExpense,
+      amount: amount,
+    };
+    console.log(payload);
+
+    try {
+      const res = await api({
+        method: "POST",
+        url: "/register",
+        data: {
+          name: name,
+          description: description,
+          category: category,
+          dateOfExpense: dateOfExpense,
+          amount: amount,
+        },
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+
+    setName("");
+    setCategory("");
+    setDescription("");
+    setDateOfExpense("");
+    setAmount("");
+  };
 
   return (
     <div
@@ -43,7 +85,7 @@ export default function RegistrationModal(props) {
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
               Create New Expense
             </h3>
-            <form className="space-y-6" action="#">
+            <form className="space-y-6" action="#" onSubmit={onSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -58,6 +100,9 @@ export default function RegistrationModal(props) {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="Name of the Expense"
                   required
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
                 />
               </div>
               <div>
@@ -74,6 +119,9 @@ export default function RegistrationModal(props) {
                   placeholder="Describe the Expense"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
                 />
               </div>
               <div>
@@ -89,6 +137,9 @@ export default function RegistrationModal(props) {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   defaultValue="Choose a Category"
                   required
+                  onChange={(e) => {
+                    setCategory(e.target.value);
+                  }}
                 >
                   <option value="Books">Books</option>
                   <option value="Health">Health</option>
@@ -108,6 +159,9 @@ export default function RegistrationModal(props) {
                   type="date"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Date of Expense"
+                  onChange={(e) => {
+                    setDateOfExpense(e.target.value);
+                  }}
                 />
               </div>
               <div>
@@ -124,6 +178,9 @@ export default function RegistrationModal(props) {
                   placeholder="Expense Amount in INR"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
+                  onChange={(e) => {
+                    setAmount(e.target.value);
+                  }}
                 />
               </div>
 

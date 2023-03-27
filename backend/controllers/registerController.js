@@ -5,7 +5,7 @@ exports.registerExpense = async (req, res) => {
   try {
     const { name, description, category, dateOfExpense, amount } = req.body;
     console.log(dateOfExpense);
-    const result = await Patient.create({
+    const result = await Expense.create({
       name: name,
       description: description,
       category: category,

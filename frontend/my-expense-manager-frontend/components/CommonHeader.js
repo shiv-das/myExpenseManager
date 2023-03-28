@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const styles = {
   common_header_logo: {
-    width: "20%",
+    width: "100",
     height: "60px",
     cursor: "pointer",
   },

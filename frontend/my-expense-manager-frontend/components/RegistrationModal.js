@@ -3,7 +3,6 @@ import { useState, useContext } from "react";
 import api from "../api";
 
 export default function RegistrationModal(props) {
-  const handleOpen = () => props.setHidden(false);
   const handleClose = () => props.setHidden(true);
 
   const [name, setName] = useState("");

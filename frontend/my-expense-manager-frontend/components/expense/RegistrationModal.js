@@ -1,57 +1,25 @@
 import * as React from "react";
 import { useState, useContext } from "react";
-import api from "../api";
+import api from "../../api";
 
 export default function RegistrationModal(props) {
-  const handleClose = () => props.setHidden(true);
+  const [expense, setExpense] = useState(props.data);
 
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [dateOfExpense, setDateOfExpense] = useState("");
-  const [amount, setAmount] = useState("");
-  //console.log(name);
-
-  var payload = {};
+  const onChange = (e) => {
+    setExpense({ ...expense, [e.target.name]: e.target.value });
+  };
 
   const onSubmit = async (e) => {
-    payload = {
-      name: name,
-      description: description,
-      category: category,
-      dateOfExpense: dateOfExpense,
-      amount: amount,
-    };
-    console.log(payload);
+    e.preventDefault();
+    await props.onSubmit(expense);
 
-    try {
-      const res = await api({
-        method: "POST",
-        url: "/register",
-        data: {
-          name: name,
-          description: description,
-          category: category,
-          dateOfExpense: dateOfExpense,
-          amount: amount,
-        },
-        headers: {
-          authorization: localStorage.getItem("x-auth-token"),
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      });
-      console.log(res);
-    } catch (error) {
-      console.log(error);
-    }
-
-    setName("");
-    setCategory("");
-    setDescription("");
-    setDateOfExpense("");
-    setAmount("");
+    setExpense({
+      name: "",
+      description: "",
+      category: "",
+      dateOfExpense: "",
+      amount: "",
+    });
   };
 
   return (
@@ -71,7 +39,7 @@ export default function RegistrationModal(props) {
             type="button"
             className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
             data-modal-hide="authentication-modal"
-            onClick={handleClose}
+            onClick={props.handleClose}
           >
             <svg
               aria-hidden="true"
@@ -103,13 +71,12 @@ export default function RegistrationModal(props) {
                 <input
                   type="name"
                   name="name"
+                  value={expense.name}
                   id="name"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="Name of the Expense"
                   required
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
+                  onChange={onChange}
                 />
               </div>
               <div>
@@ -122,13 +89,12 @@ export default function RegistrationModal(props) {
                 <input
                   type="description"
                   name="description"
+                  value={expense.description}
                   id="description"
                   placeholder="Describe the Expense"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
-                  onChange={(e) => {
-                    setDescription(e.target.value);
-                  }}
+                  onChange={onChange}
                 />
               </div>
               <div>
@@ -140,13 +106,12 @@ export default function RegistrationModal(props) {
                 </label>
                 <select
                   id="category"
+                  name="category"
                   placeholder="Select Category"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   defaultValue="Choose a Category"
                   required
-                  onChange={(e) => {
-                    setCategory(e.target.value);
-                  }}
+                  onChange={onChange}
                 >
                   <option value="Books">Books</option>
                   <option value="Health">Health</option>
@@ -164,11 +129,11 @@ export default function RegistrationModal(props) {
                 </label>
                 <input
                   type="date"
+                  name="dateOfExpense"
+                  value={expense.dateOfExpense}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Date of Expense"
-                  onChange={(e) => {
-                    setDateOfExpense(e.target.value);
-                  }}
+                  onChange={onChange}
                 />
               </div>
               <div>
@@ -181,13 +146,12 @@ export default function RegistrationModal(props) {
                 <input
                   type="number"
                   name="amount"
+                  value={expense.amount}
                   id="amount"
                   placeholder="Expense Amount in INR"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   required
-                  onChange={(e) => {
-                    setAmount(e.target.value);
-                  }}
+                  onChange={onChange}
                 />
               </div>
 

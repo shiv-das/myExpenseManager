@@ -19,6 +19,12 @@ const reducer = (state, action) => {
         ...state,
         auth: { isSignedIn: action.payload.flag, user: action.payload.user },
       };
+    case "createExpense":
+      console.log(action.payload);
+      return {
+        ...state,
+        expenses: { [action.payload._id]: action.payload, ...state.expenses },
+      };
     case "fetchExpenses":
       return { ...state, expenses: _.mapKeys(action.payload, "_id") };
     case "searchExpenses":

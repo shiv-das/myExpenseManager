@@ -1,9 +1,9 @@
 import * as React from "react";
 
 import { AppContext } from "../AppContext";
-import { auth, fetchPatients, searchPatients } from "../actions";
+import { auth } from "../actions";
 import CommonHeader from "../components/CommonHeader";
-import RegistrationModal from "../components/RegistrationModal";
+import CreateExpense from "../components/expense/create";
 import ConfirmationModal from "../components/ConfirmationModal";
 import { useState } from "react";
 import { fetchExpenses, searchExpenses } from "../actions";
@@ -22,6 +22,8 @@ export default function List(props) {
   const { state, dispatch } = React.useContext(AppContext);
 
   const [searchNameField, setsearchNameField] = React.useState("");
+
+  const [filterByDateField, setFilterByDateField] = React.useState("");
 
   React.useEffect(() => {
     if (!localStorage.getItem("x-auth-token")) {
@@ -43,13 +45,18 @@ export default function List(props) {
     }
   }, [state.auth["isSignedIn"]]);
 
-  //console.log(Object.values(state.expenses)[1].name);
   const arr = Object.values(state.expenses);
-
+  console.log(state);
   const handleNameSearch = async (e) => {
     setsearchNameField(e.target.value);
     console.log(e.target.value);
-    dispatch(await searchExpenses(e.target.value));
+    dispatch(await searchExpenses(e.target.value, filterByDateField));
+  };
+
+  const handleFilterByDate = async (e) => {
+    setFilterByDateField(e.target.value);
+    console.log(e.target.value);
+    dispatch(await searchExpenses(searchNameField, e.target.value));
   };
 
   const [isModalHidden, setIsModalHidden] = React.useState(true);
@@ -61,7 +68,12 @@ export default function List(props) {
     <div>
       <CommonHeader />
 
-      <RegistrationModal hidden={isModalHidden} setHidden={setIsModalHidden} />
+      <CreateExpense
+        hidden={isModalHidden}
+        handleClose={() => {
+          setIsModalHidden(true);
+        }}
+      />
 
       <ConfirmationModal
         hidden={isConfirmationModalHidden}
@@ -78,9 +90,11 @@ export default function List(props) {
               type="text"
               className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder=" Filter by Date of Expense"
+              onChange={handleFilterByDate}
               onFocus={(e) => {
                 e.target.type = "date";
               }}
+              onBlur={(e) => (e.target.type = "text")}
             />
           </div>
 
@@ -149,9 +163,12 @@ export default function List(props) {
             </tr>
           </thead>
           <tbody>
-            {arr.map((row) => {
+            {arr.map((row, index) => {
               return (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <tr
+                  key={index}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
                   <th
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -159,7 +176,9 @@ export default function List(props) {
                     {row.description}
                   </th>
                   <td className="px-6 py-4">{row.category}</td>
-                  <td className="px-6 py-4">{row.dateOfExpense}</td>
+                  <td className="px-6 py-4">
+                    {new Date(row.dateOfExpense).toDateString()}
+                  </td>
                   <td className="px-6 py-4">{"INR " + row.amount}</td>
                   <td className="px-6 py-4">just now</td>
                   <td className="px-6 py-4">{row.name}</td>

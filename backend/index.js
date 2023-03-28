@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/", adminRoutes);
+
 app.use("/expenses", expenseRoutes);
 
 app.get("/", (req, res) => {

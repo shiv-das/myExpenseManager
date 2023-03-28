@@ -1,10 +1,15 @@
 const express = require("express");
 
 const router = express.Router();
-const { fetchExpense } = require("../controllers/fetchController");
-const { searchExpense } = require("../controllers/searchController");
+const {
+  fetchExpense,
+  searchExpense,
+  createExpense,
+} = require("../controllers/expenseController");
 
 router.get("/", fetchExpense);
+
+router.post("/", createExpense);
 
 router.get("/search", searchExpense);
 

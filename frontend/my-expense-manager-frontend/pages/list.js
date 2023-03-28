@@ -4,6 +4,7 @@ import { AppContext } from "../AppContext";
 import { auth, fetchPatients, searchPatients } from "../actions";
 import CommonHeader from "../components/CommonHeader";
 import RegistrationModal from "../components/RegistrationModal";
+import ConfirmationModal from "../components/ConfirmationModal";
 import { useState } from "react";
 import { fetchExpenses, searchExpenses } from "../actions";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
@@ -53,11 +54,19 @@ export default function List(props) {
 
   const [isModalHidden, setIsModalHidden] = React.useState(true);
 
+  const [isConfirmationModalHidden, setIsConfirmationModalHidden] =
+    React.useState(true);
+
   return (
     <div>
       <CommonHeader />
 
       <RegistrationModal hidden={isModalHidden} setHidden={setIsModalHidden} />
+
+      <ConfirmationModal
+        hidden={isConfirmationModalHidden}
+        setHidden={setIsConfirmationModalHidden}
+      />
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div className="flex items-center justify-between pb-4">
@@ -160,8 +169,11 @@ export default function List(props) {
                     >
                       <PencilIcon className="h-6 w-6 text-gray-500 float-left mr-4" />
                     </a>
-                    <a href="#">
-                      <TrashIcon className="h-6 w-6 text-gray-500 float-left" />
+                    <a
+                      href="#"
+                      onClick={() => setIsConfirmationModalHidden(false)}
+                    >
+                      <TrashIcon className="h-6 w-6 text-red-500 float-left" />
                     </a>
                   </td>
                 </tr>

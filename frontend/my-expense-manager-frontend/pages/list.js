@@ -6,6 +6,7 @@ import CommonHeader from "../components/CommonHeader";
 import RegistrationModal from "../components/RegistrationModal";
 import { useState } from "react";
 import { fetchExpenses, searchExpenses } from "../actions";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/solid";
 
 const styles = {
   table: {
@@ -60,10 +61,22 @@ export default function List(props) {
 
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div className="flex items-center justify-between pb-4">
+          <h1 className="text-2xl font-bold text-gray-700 dark:text-gray-400 flex-none">
+            MY EXPENSE MANAGER
+          </h1>
+          <div className="text-center lg:text-left flex-2">
+            <button
+              type="submit"
+              className="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              Filter by Date of Expense
+            </button>
+          </div>
+
           <label htmlFor="table-search" className="sr-only">
             Search
           </label>
-          <div className="relative">
+          <div className="relative flex-2">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg
                 className="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -87,7 +100,7 @@ export default function List(props) {
               onChange={handleNameSearch}
             />
           </div>
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left flex-2">
             <button
               type="submit"
               className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800"
@@ -142,9 +155,13 @@ export default function List(props) {
                   <td className="px-6 py-4">
                     <a
                       href="#"
-                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                      className=""
+                      onClick={() => setIsModalHidden(false)}
                     >
-                      Edit
+                      <PencilIcon className="h-6 w-6 text-gray-500 float-left mr-4" />
+                    </a>
+                    <a href="#">
+                      <TrashIcon className="h-6 w-6 text-gray-500 float-left" />
                     </a>
                   </td>
                 </tr>

@@ -1,7 +1,8 @@
 const Expense = require("../models/expenseSchema");
 var mongoose = require("mongoose");
+const _ = require("lodash");
 
-exports.fetchExpense = async (req, res, next) => {
+exports.fetchExpenses = async (req, res, next) => {
   console.log(req.query);
   console.log(req.headers);
   const pageNum = req.query.pageNum + 1;
@@ -36,13 +37,40 @@ exports.createExpense = async (req, res) => {
   }
 };
 
-exports.deleteExpense = async (req, res) => {
+exports.editExpense = async (req, res) => {
   try {
     console.log(req.body);
-    const result = Expense.findByIdAndDelete(req.body.id);
-    //console.log(result);
-    const expenses = await Expense.find();
-    res.status(200).send(expenses);
+
+    const expense = await Expense.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    //const expenses = await Expense.find();
+    console.log(expense);
+    res.status(200).send(expense);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.deleteExpense = async (req, res) => {
+  try {
+    console.log(req.params);
+
+    const expense = await Expense.findByIdAndDelete(req.params.id);
+    //const expenses = await Expense.find();
+    res.status(200).send(expense);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.fetchExpense = async (req, res) => {
+  try {
+    console.log(req.params);
+
+    const expense = await Expense.findById(req.params.id);
+
+    res.status(200).send(expense);
   } catch (error) {
     console.log(error);
   }

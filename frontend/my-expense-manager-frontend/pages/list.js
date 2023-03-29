@@ -79,6 +79,7 @@ export default function List(props) {
         }}
       />
       <EditExpense
+        id={id}
         hidden={isEditModalHidden}
         handleClose={() => {
           setIsEditModalHidden(true);

@@ -23,6 +23,8 @@ export default function CreateExpense(props) {
         handleClose={props.handleClose}
         hidden={props.hidden}
         onSubmit={onSubmit}
+        modalHeader={"Create New Expense"}
+        buttonName={"Create Expense"}
         data={{
           name: "",
           description: "",

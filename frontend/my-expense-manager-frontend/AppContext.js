@@ -5,6 +5,7 @@ const AppContext = createContext({});
 
 const initialState = {
   expenses: {},
+  expense: {},
   auth: {
     isSignedIn: false,
     user: null,
@@ -26,10 +27,12 @@ const reducer = (state, action) => {
         expenses: { [action.payload._id]: action.payload, ...state.expenses },
       };
     case "editExpense":
+      console.log("abcd", action.payload);
       return {
         ...state,
-        expenses: { [action.payload._id]: action.payload, ...state.expenses },
+        expenses: { ...state.expenses, [action.payload._id]: action.payload },
       };
+
     case "deleteExpense":
       return {
         ...state,
@@ -37,6 +40,11 @@ const reducer = (state, action) => {
       };
     case "fetchExpenses":
       return { ...state, expenses: _.mapKeys(action.payload, "_id") };
+
+    case "fetchExpense":
+      console.log(action.payload);
+      return { ...state, expense: action.payload };
+
     case "searchExpenses":
       return { ...state, expenses: _.mapKeys(action.payload, "_id") };
     default:

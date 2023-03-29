@@ -4,6 +4,10 @@ import { useState, useContext } from "react";
 export default function RegistrationModal(props) {
   const [expense, setExpense] = useState(props.data);
 
+  React.useEffect(() => {
+    setExpense(props.data);
+  }, [props.data]);
+
   const onChange = (e) => {
     setExpense({ ...expense, [e.target.name]: e.target.value });
   };
@@ -57,7 +61,7 @@ export default function RegistrationModal(props) {
           </button>
           <div className="px-6 py-6 lg:px-8">
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-              Create New Expense
+              {props.modalHeader}
             </h3>
             <form className="space-y-6" action="#" onSubmit={onSubmit}>
               <div>

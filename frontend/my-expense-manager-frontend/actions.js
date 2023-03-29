@@ -27,8 +27,8 @@ export const createExpense = async (payload) => {
   };
 };
 
-export const editExpense = async (payload) => {
-  const response = await axios.post("/expenses", payload, {
+export const editExpense = async (payload, id) => {
+  const response = await axios.post(`/expenses/edit/${id}`, payload, {
     headers: {
       authorization: localStorage.getItem("x-auth-token"),
       Accept: "application/json",
@@ -42,10 +42,20 @@ export const editExpense = async (payload) => {
   };
 };
 
+export const fetchExpense = async (id) => {
+  console.log("response");
+  const response = await axios.get(`/expenses/${id}`);
+
+  return {
+    type: "fetchExpense",
+    payload: response.data,
+  };
+};
+
 export const deleteExpense = async (id) => {
   const response = await axios.delete(
-    "/expenses",
-    { data: { id: id } },
+    `/expenses/${id}`,
+    {},
     {
       headers: {
         authorization: localStorage.getItem("x-auth-token"),
@@ -62,6 +72,7 @@ export const deleteExpense = async (id) => {
 };
 
 export const fetchExpenses = async (pageNum, itemsPerPage) => {
+  console.log("Im here");
   const response = await axios.get("/expenses", {
     params: { pageNum, itemsPerPage },
   });

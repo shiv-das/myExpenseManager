@@ -25,6 +25,16 @@ const reducer = (state, action) => {
         ...state,
         expenses: { [action.payload._id]: action.payload, ...state.expenses },
       };
+    case "editExpense":
+      return {
+        ...state,
+        expenses: { [action.payload._id]: action.payload, ...state.expenses },
+      };
+    case "deleteExpense":
+      return {
+        ...state,
+        expenses: _.omit(state.expenses, action.payload),
+      };
     case "fetchExpenses":
       return { ...state, expenses: _.mapKeys(action.payload, "_id") };
     case "searchExpenses":

@@ -27,6 +27,40 @@ export const createExpense = async (payload) => {
   };
 };
 
+export const editExpense = async (payload) => {
+  const response = await axios.post("/expenses", payload, {
+    headers: {
+      authorization: localStorage.getItem("x-auth-token"),
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+  return {
+    type: "editExpense",
+    payload: response.data,
+  };
+};
+
+export const deleteExpense = async (id) => {
+  const response = await axios.delete(
+    "/expenses",
+    { data: { id: id } },
+    {
+      headers: {
+        authorization: localStorage.getItem("x-auth-token"),
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
+  return {
+    type: "deleteExpense",
+    payload: id,
+  };
+};
+
 export const fetchExpenses = async (pageNum, itemsPerPage) => {
   const response = await axios.get("/expenses", {
     params: { pageNum, itemsPerPage },

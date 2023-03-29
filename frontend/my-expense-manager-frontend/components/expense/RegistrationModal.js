@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState, useContext } from "react";
-import api from "../../api";
 
 export default function RegistrationModal(props) {
   const [expense, setExpense] = useState(props.data);

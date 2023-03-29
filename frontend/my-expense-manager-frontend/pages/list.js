@@ -4,6 +4,7 @@ import { AppContext } from "../AppContext";
 import { auth } from "../actions";
 import CommonHeader from "../components/CommonHeader";
 import CreateExpense from "../components/expense/create";
+import EditExpense from "../components/expense/edit";
 import ConfirmationModal from "../components/ConfirmationModal";
 import { useState } from "react";
 import { fetchExpenses, searchExpenses } from "../actions";
@@ -24,6 +25,8 @@ export default function List(props) {
   const [searchNameField, setsearchNameField] = React.useState("");
 
   const [filterByDateField, setFilterByDateField] = React.useState("");
+
+  const [id, setId] = useState("");
 
   React.useEffect(() => {
     if (!localStorage.getItem("x-auth-token")) {
@@ -46,7 +49,7 @@ export default function List(props) {
   }, [state.auth["isSignedIn"]]);
 
   const arr = Object.values(state.expenses);
-  console.log(state);
+  //console.log(state);
   const handleNameSearch = async (e) => {
     setsearchNameField(e.target.value);
     console.log(e.target.value);
@@ -60,6 +63,7 @@ export default function List(props) {
   };
 
   const [isModalHidden, setIsModalHidden] = React.useState(true);
+  const [isEditModalHidden, setIsEditModalHidden] = React.useState(true);
 
   const [isConfirmationModalHidden, setIsConfirmationModalHidden] =
     React.useState(true);
@@ -74,8 +78,15 @@ export default function List(props) {
           setIsModalHidden(true);
         }}
       />
+      <EditExpense
+        hidden={isEditModalHidden}
+        handleClose={() => {
+          setIsEditModalHidden(true);
+        }}
+      />
 
       <ConfirmationModal
+        id={id}
         hidden={isConfirmationModalHidden}
         setHidden={setIsConfirmationModalHidden}
       />
@@ -186,13 +197,21 @@ export default function List(props) {
                     <a
                       href="#"
                       className=""
-                      onClick={() => setIsModalHidden(false)}
+                      onClick={() => {
+                        setIsEditModalHidden(false);
+                        console.log(row._id);
+                        setId(row._id);
+                      }}
                     >
                       <PencilIcon className="h-6 w-6 text-gray-500 float-left mr-4" />
                     </a>
                     <a
                       href="#"
-                      onClick={() => setIsConfirmationModalHidden(false)}
+                      onClick={() => {
+                        setIsConfirmationModalHidden(false);
+                        console.log(row._id);
+                        setId(row._id);
+                      }}
                     >
                       <TrashIcon className="h-6 w-6 text-red-500 float-left" />
                     </a>

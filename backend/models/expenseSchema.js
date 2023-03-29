@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const Schema = mongoose.Schema;
 
@@ -32,5 +33,7 @@ const expenseSchema = new Schema({
     index: true,
   },
 });
+
+//expenseSchema.plugin(AutoIncrement, { inc_field: "id" });
 
 module.exports = mongoose.model("Expense", expenseSchema);

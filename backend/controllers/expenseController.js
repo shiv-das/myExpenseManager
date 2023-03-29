@@ -9,7 +9,7 @@ exports.fetchExpense = async (req, res, next) => {
   try {
     const expenses = await Expense.find()
       .skip((pageNum - 1) * 100)
-      .sort({ created_at: -1 });
+      .sort({ id: -1 });
 
     res.send(expenses);
   } catch (error) {
@@ -20,7 +20,7 @@ exports.fetchExpense = async (req, res, next) => {
 exports.createExpense = async (req, res) => {
   try {
     const { name, description, category, dateOfExpense, amount } = req.body;
-    console.log(dateOfExpense);
+    //console.log(dateOfExpense);
     const result = await Expense.create({
       name: name,
       description: description,
@@ -33,6 +33,18 @@ exports.createExpense = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(404);
+  }
+};
+
+exports.deleteExpense = async (req, res) => {
+  try {
+    console.log(req.body);
+    const result = Expense.findByIdAndDelete(req.body.id);
+    //console.log(result);
+    const expenses = await Expense.find();
+    res.status(200).send(expenses);
+  } catch (error) {
+    console.log(error);
   }
 };
 

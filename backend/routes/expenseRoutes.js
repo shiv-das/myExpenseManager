@@ -12,6 +12,8 @@ const {
 
 router.get("/", fetchExpenses);
 
+router.get("/search/", searchExpense);
+
 router.get("/:id", fetchExpense);
 
 router.post("/", createExpense);
@@ -19,7 +21,5 @@ router.post("/", createExpense);
 router.post("/edit/:id", editExpense);
 
 router.delete("/:id", deleteExpense);
-
-router.get("/search", searchExpense);
 
 module.exports = router;

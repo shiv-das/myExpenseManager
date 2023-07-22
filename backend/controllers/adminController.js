@@ -7,7 +7,9 @@ exports.loginController = async (req, res) => {
   //Secret Token should be stored in env files , for this project i have used it directly.
   const accessToken = jwt.sign(user, "abcd");
 
-  if (!(req.body.email === "peer@gmail.com" && req.body.password === "1234")) {
+  if (
+    !(req.body.email === "rishabh@gmail.com" && req.body.password === "1234")
+  ) {
     console.log("Email Password Invalid");
     return res.status(404).send("Email Pass not found");
   }

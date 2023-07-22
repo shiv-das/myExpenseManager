@@ -20,7 +20,7 @@ export default function CommonHeader() {
           >
             <img
               className="items-center"
-              src="logo.png"
+              src="logo1.png"
               style={styles["common_header_logo"]}
               alt=""
               loading="lazy"
